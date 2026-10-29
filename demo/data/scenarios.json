@@ -1,0 +1,104 @@
+[
+  {
+    "id": "refund-stalled",
+    "title": "Refund a stalled shipment",
+    "summary": "Full refund of NW-18442, then a second Approve click.",
+    "lesson": "Approve, and a duplicate click does not pay twice",
+    "task": "Order NW-18442 (queen wool blanket, oat, $86.40) never received a carrier scan from Northline Freight, tracking NL-00018442. Refund the full captured amount. Reason: carrier never scanned the shipment.",
+    "risk_label": "Moves money",
+    "draft": {
+      "commentary": "Order NW-18442 is $86.40 and the carrier never scanned it. I will ask for approval before issuing the full refund.",
+      "tool": "issue_refund",
+      "arguments": {
+        "order_id": "NW-18442",
+        "amount_usd": "86.40",
+        "reason": "Carrier never scanned the shipment."
+      }
+    },
+    "deny_reason": "Carrier trace is still open. Do not refund the full capture yet.",
+    "duplicate_approve": true
+  },
+  {
+    "id": "refund-goodwill",
+    "title": "Cut a refund in half",
+    "summary": "The agent proposes $86.40. A reviewer authorizes $43.20.",
+    "lesson": "An edit is re-validated, then executed once",
+    "task": "Order NW-18442 is $86.40 and still unscanned. Propose the full refund. A reviewer may reduce it to a partial goodwill amount if they want the carrier trace to finish.",
+    "risk_label": "Moves money",
+    "draft": {
+      "commentary": "The task asks for the full capture on NW-18442. I will propose $86.40 and leave the amount editable.",
+      "tool": "issue_refund",
+      "arguments": {
+        "order_id": "NW-18442",
+        "amount_usd": "86.40",
+        "reason": "Carrier never scanned the shipment."
+      }
+    },
+    "deny_reason": "Do not refund this order.",
+    "edit_example": {
+      "reason": "Reviewer reduced the refund to half while the trace stays open.",
+      "arguments": {
+        "order_id": "NW-18442",
+        "amount_usd": "43.20",
+        "reason": "Partial goodwill while the carrier trace stays open."
+      }
+    }
+  },
+  {
+    "id": "email-vendor",
+    "title": "Hold a vendor email",
+    "summary": "A hold-check to the vendor desk. The reviewer stops it.",
+    "lesson": "Deny records a reason and never calls the tool",
+    "task": "Email vendor-desk@northwind.example about invoice INV-2091 (PO-441, wool blankets). Ask them to confirm it is still on hold. Do not promise a payment date.",
+    "risk_label": "Sends mail",
+    "draft": {
+      "commentary": "This note only confirms the hold on INV-2091. It goes to the vendor desk, and it promises no payment date.",
+      "tool": "send_email",
+      "arguments": {
+        "to": "vendor-desk@northwind.example",
+        "subject": "INV-2091 hold check",
+        "body": "Please confirm invoice INV-2091 (PO-441, wool blankets) is still on hold. No payment date is promised in this note."
+      }
+    },
+    "deny_reason": "Finance already has a thread open with the vendor. Do not send another."
+  },
+  {
+    "id": "dns-cutover",
+    "title": "Cut over a DNS record",
+    "summary": "Move shop.example.test to 203.0.113.24. Leave status.example.test alone.",
+    "lesson": "Approve applies the mock change exactly once",
+    "task": "Change the A record for shop.example.test from 203.0.113.10 to 203.0.113.24 in zone example.test. Do not touch status.example.test.",
+    "risk_label": "Changes DNS",
+    "draft": {
+      "commentary": "shop.example.test should move from 203.0.113.10 to 203.0.113.24. status.example.test stays as it is.",
+      "tool": "change_dns",
+      "arguments": {
+        "zone": "example.test",
+        "name": "shop.example.test",
+        "record_type": "A",
+        "value": "203.0.113.24"
+      }
+    },
+    "deny_reason": "Change window is frozen until the status name is moved."
+  },
+  {
+    "id": "refund-expired",
+    "title": "A refund window closes",
+    "summary": "NW-17710 stays open for one hour. A late Approve does not pay.",
+    "lesson": "Past expires_at, the tool is not called",
+    "task": "Order NW-17710 (linen napkin set, $18.00) was cancelled before it shipped, and the capture is still open. Refund the full $18.00.",
+    "risk_label": "Moves money",
+    "ttl_seconds": 3600,
+    "feature_expiry": true,
+    "draft": {
+      "commentary": "Order NW-17710 was cancelled before shipment and the $18.00 capture is still open. I will propose that refund.",
+      "tool": "issue_refund",
+      "arguments": {
+        "order_id": "NW-17710",
+        "amount_usd": "18.00",
+        "reason": "Cancelled before shipment; capture still open."
+      }
+    },
+    "deny_reason": "Let the cancel flow release the capture. Do not refund it here."
+  }
+]

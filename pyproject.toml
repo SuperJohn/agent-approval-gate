@@ -1,0 +1,42 @@
+[project]
+name = "agent-approval-gate"
+version = "0.1.0"
+description = "Async human-in-the-loop approval gate for agents. Draft a high-stakes action, persist state, pause, and resume on a human decision."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "John Houghton" }]
+keywords = ["agents", "human-in-the-loop", "approval", "fastapi"]
+dependencies = [
+  "fastapi>=0.115",
+  "pydantic>=2.6",
+  "python-multipart>=0.0.9",
+  "uvicorn>=0.32",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.27",
+  "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://houghtonlabs.com"
+Repository = "https://github.com/SuperJohn/agent-approval-gate"
+
+[project.scripts]
+agent-gate = "agent_gate.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["agent_gate*"]
+
+[tool.setuptools.package-data]
+agent_gate = ["live.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

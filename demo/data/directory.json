@@ -1,0 +1,7 @@
+{
+  "mailboxes": [
+    {"address": "vendor-desk@northwind.example", "label": "Vendor desk"},
+    {"address": "billing@northwind.example", "label": "Billing"},
+    {"address": "ops@example.test", "label": "Ops"}
+  ]
+}
