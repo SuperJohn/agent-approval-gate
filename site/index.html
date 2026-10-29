@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Approval Gate · Houghton Labs</title>
+  <meta name="description" content="Static replay of an async human-in-the-loop approval gate for agents. Synthetic data, no backend.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c1612'/%3E%3Cpath d='M8 16h16M16 8v16' stroke='%23f3eee6' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search).get("theme");
+      var t = q || localStorage.getItem("hl-theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#timeline">Skip to the timeline</a>
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">HL</span>
+      <div>
+        <p class="org">Houghton Labs</p>
+        <h1>Approval Gate</h1>
+      </div>
+    </div>
+    <p class="lede">An agent drafts a high-stakes action, writes its full state to SQLite, and stops. A human approves, denies, or edits. The process can exit and come back days later.</p>
+    <div class="top-side">
+      <p id="stamp" class="stamp"></p>
+      <button id="theme-toggle" type="button">Theme</button>
+    </div>
+  </header>
+  <main class="layout">
+    <nav id="run-list" aria-label="Recorded runs"></nav>
+    <section class="stage">
+      <div>
+        <p class="section-label" id="lesson"></p>
+        <ol id="timeline"></ol>
+        <section id="audit" aria-label="Audit log"></section>
+      </div>
+      <aside id="card" aria-live="polite"></aside>
+    </section>
+  </main>
+  <footer>
+    <p>Synthetic company, Northwind Field Goods. Documentation addresses and 203.0.113.0/24 only. This page replays a frozen recording and does not call a server.</p>
+    <p>Live API: <code>make run</code> · houghtonlabs.com</p>
+  </footer>
+  <script src="data/runs.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

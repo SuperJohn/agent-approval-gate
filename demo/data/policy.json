@@ -1,0 +1,20 @@
+{
+  "tools": {
+    "issue_refund": {
+      "requires_approval": true,
+      "ttl_seconds": 604800,
+      "max_amount_usd": "500.00",
+      "description": "Refund a captured order, up to the captured total and the policy cap."
+    },
+    "send_email": {
+      "requires_approval": true,
+      "ttl_seconds": 259200,
+      "description": "Queue an email to one address in the company directory."
+    },
+    "change_dns": {
+      "requires_approval": true,
+      "ttl_seconds": 14400,
+      "description": "Change an existing A record inside an allowed zone. Values must be in 203.0.113.0/24."
+    }
+  }
+}

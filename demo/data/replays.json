@@ -1,0 +1,53 @@
+{
+  "refund-stalled": {
+    "commentary": "Order NW-18442 is $86.40 and the carrier never scanned it. I will ask for approval before issuing the full refund.",
+    "tool": "issue_refund",
+    "arguments": {
+      "order_id": "NW-18442",
+      "amount_usd": "86.40",
+      "reason": "Carrier never scanned the shipment."
+    },
+    "final_template": "Issued refund {refund_id} for ${amount_usd} on order {order_id}."
+  },
+  "refund-goodwill": {
+    "commentary": "The task asks for the full capture on NW-18442. I will propose $86.40 and leave the amount editable.",
+    "tool": "issue_refund",
+    "arguments": {
+      "order_id": "NW-18442",
+      "amount_usd": "86.40",
+      "reason": "Carrier never scanned the shipment."
+    },
+    "final_template": "Issued refund {refund_id} for ${amount_usd} on order {order_id}."
+  },
+  "email-vendor": {
+    "commentary": "This note only confirms the hold on INV-2091. It goes to the vendor desk, and it promises no payment date.",
+    "tool": "send_email",
+    "arguments": {
+      "to": "vendor-desk@northwind.example",
+      "subject": "INV-2091 hold check",
+      "body": "Please confirm invoice INV-2091 (PO-441, wool blankets) is still on hold. No payment date is promised in this note."
+    },
+    "final_template": "Queued {message_id} to {to}."
+  },
+  "dns-cutover": {
+    "commentary": "shop.example.test should move from 203.0.113.10 to 203.0.113.24. status.example.test stays as it is.",
+    "tool": "change_dns",
+    "arguments": {
+      "zone": "example.test",
+      "name": "shop.example.test",
+      "record_type": "A",
+      "value": "203.0.113.24"
+    },
+    "final_template": "Updated {name} from {previous} to {value} ({change_id})."
+  },
+  "refund-expired": {
+    "commentary": "Order NW-17710 was cancelled before shipment and the $18.00 capture is still open. I will propose that refund.",
+    "tool": "issue_refund",
+    "arguments": {
+      "order_id": "NW-17710",
+      "amount_usd": "18.00",
+      "reason": "Cancelled before shipment; capture still open."
+    },
+    "final_template": "Issued refund {refund_id} for ${amount_usd} on order {order_id}."
+  }
+}
